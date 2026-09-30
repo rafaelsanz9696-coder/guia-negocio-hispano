@@ -1,0 +1,215 @@
+<title>Guía del Negocio Hispano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: expediente de formularios — cabecera tipo formulario, barra de filtros, lista de fichas con líneas de campo */
+:root{
+  --paper:#F6F8F6; --sheet:#FFFFFF; --ink:#14231C; --muted:#56655D; --rule:#D5DDD8;
+  --accent:#0B6B47; --accent-soft:#E2F1EA; --mark:#F3D34A; --mark-ink:#3A2F00;
+  --warn:#9A4B12;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1713; --sheet:#16211C; --ink:#E4EDE8; --muted:#9BAAA2; --rule:#2B3A33;
+  --accent:#4FC38F; --accent-soft:#18342A; --mark:#E0C23F; --mark-ink:#241D00; --warn:#E39A62; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1713; --sheet:#16211C; --ink:#E4EDE8; --muted:#9BAAA2; --rule:#2B3A33;
+  --accent:#4FC38F; --accent-soft:#18342A; --mark:#E0C23F; --mark-ink:#241D00; --warn:#E39A62; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:17px/1.55 var(--f-body);margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-inline:20px;padding-block:28px 64px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.form{border:1.5px solid var(--ink);background:var(--sheet)}
+.formbar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;border-bottom:1.5px solid var(--ink);padding:8px 14px;font:500 12px/1.3 var(--f-mono);letter-spacing:.04em;text-transform:uppercase}
+.formbody{padding:22px 18px 20px;display:grid;gap:14px}
+h1{font:800 clamp(34px,6vw,58px)/.95 var(--f-display);font-stretch:78%;margin:0;letter-spacing:-.01em;text-wrap:balance;text-transform:uppercase}
+h1 span{background:linear-gradient(transparent 58%,var(--mark) 58% 92%,transparent 92%);color:inherit}
+.lede{max-width:62ch;margin:0;color:var(--ink)}
+.cells{display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--ink)}
+.cell{padding:10px 14px;border-right:1px solid var(--rule);min-width:0}
+.cell:last-child{border-right:0}
+.cell b{display:block;font:700 28px/1 var(--f-display);font-stretch:80%;font-variant-numeric:tabular-nums}
+.cell small{font:500 11px/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.notice{font-size:14px;color:var(--muted);border-left:3px solid var(--mark);padding:2px 0 2px 12px;max-width:70ch}
+
+.filters{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);padding-block:14px 10px;border-bottom:1px solid var(--rule);display:grid;gap:10px;margin-top:22px}
+.filters>*{min-width:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type=search],select{font:inherit;font-size:16px;color:var(--ink);background:var(--sheet);border:1.5px solid var(--ink);border-radius:0;padding:9px 12px;min-width:0}
+input[type=search]{flex:1 1 260px}
+select{flex:0 1 auto;max-width:100%}
+.chip{font:500 13px/1 var(--f-mono);letter-spacing:.02em;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);padding:8px 11px;cursor:pointer;border-radius:999px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip:hover{border-color:var(--ink)}
+.count{font:500 13px var(--f-mono);color:var(--muted);margin-left:auto}
+.lab{font:500 11px var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:2px}
+
+.sec{margin-top:34px}
+.sec h2{font:800 22px/1.1 var(--f-display);font-stretch:85%;text-transform:uppercase;margin:0 0 4px;display:flex;gap:10px;align-items:baseline;text-wrap:balance}
+.sec h2 .n{font:500 13px var(--f-mono);color:var(--accent)}
+.sec .intro{margin:0 0 12px;color:var(--muted);max-width:70ch;font-size:15px}
+.list{display:grid;gap:12px}
+.card{background:var(--sheet);border:1px solid var(--rule);min-width:0}
+.card:target{outline:2px solid var(--accent)}
+.card summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;gap:8px}
+.card summary::-webkit-details-marker{display:none}
+.top{display:flex;gap:12px;align-items:flex-start}
+.code{font:500 12px var(--f-mono);color:var(--accent);padding-top:5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.card h3{font:700 19px/1.25 var(--f-display);font-stretch:92%;margin:0;flex:1;min-width:0;text-wrap:balance}
+.tw{font-size:14px;color:var(--muted);transition:transform .15s;padding-top:4px}
+details[open] .tw{transform:rotate(90deg)}
+.short{margin:0;max-width:72ch}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font:500 11.5px/1 var(--f-mono);padding:5px 8px;border:1px solid var(--rule);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.pill.ev{border-color:var(--ink);color:var(--ink)}
+.pill.evA{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.pill.free{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.fields{border-top:1px dashed var(--rule);padding:4px 16px 14px}
+.f{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule)}
+.f:last-child{border-bottom:0}
+.f dt{font:500 11px/1.8 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.f dd{margin:0;min-width:0;overflow-wrap:anywhere;font-size:16px}
+.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--rule)}
+footer{margin-top:48px;padding-top:18px;border-top:1.5px solid var(--ink);display:grid;gap:8px;font-size:15px;color:var(--muted)}
+footer strong{color:var(--ink)}
+@media (max-width:640px){
+  body{font-size:16px}
+  .cells{grid-template-columns:repeat(2,1fr)}
+  .cell:nth-child(2){border-right:0}
+  .cell:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+  .f{grid-template-columns:1fr;gap:2px}
+  .sec h2{flex-direction:column;gap:2px}
+  .filters{position:static}
+  .count{margin-left:0;width:100%}
+  input[type=search],select{flex:1 1 100%;width:100%}
+}
+@media (prefers-reduced-motion:reduce){.tw{transition:none}}
+</style>
+
+<div class="wrap">
+  <header class="form">
+    <div class="formbar"><span>Guía para dueños · Florida / EE. UU.</span><span>Verificado: 30 sep 2026</span></div>
+    <div class="formbody">
+      <h1>Guía del Negocio <span>Hispano</span></h1>
+      <p class="lede">Decisiones que le ahorran dinero, multas y demandas a un dueño de negocio hispano en EE. UU. Cada ficha dice lo que cuesta, lo que te ahorras, qué tan firme es la evidencia y la fuente oficial.</p>
+      <p class="notice">Información general, no asesoría legal ni fiscal. Lo estatal es de Florida. Para tu caso concreto, consulta con un CPA o un abogado con licencia.</p>
+    </div>
+    <div class="cells" id="stats">
+      <div class="cell"><b id="st-n">–</b><small>fichas</small></div>
+      <div class="cell"><b id="st-s">–</b><small>secciones</small></div>
+      <div class="cell"><b id="st-a">–</b><small>evidencia A</small></div>
+      <div class="cell"><b id="st-f">–</b><small>gratis de aplicar</small></div>
+    </div>
+  </header>
+
+  <div class="filters" role="search">
+    <div class="row">
+      <label class="lab" for="q">Buscar</label>
+      <input id="q" type="search" placeholder="LLC, WhatsApp, 1099, empleados…" autocomplete="off">
+      <select id="sec" aria-label="Sección"><option value="">Todas las secciones</option></select>
+    </div>
+    <div class="row" id="chips">
+      <span class="lab">Filtrar</span>
+      <button class="chip" data-k="ev" data-v="A" aria-pressed="false">Evidencia A</button>
+      <button class="chip" data-k="dinero" data-v="0" aria-pressed="false">Gratis</button>
+      <button class="chip" data-k="beneficio" data-v="grande" aria-pressed="false">Beneficio grande</button>
+      <button class="chip" data-k="tipo" data-v="dinero" aria-pressed="false">Ahorra dinero</button>
+      <button class="chip" data-k="tipo" data-v="legal" aria-pressed="false">Evita problemas legales</button>
+      <span class="count" id="count" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <main id="out"><p class="empty">Cargando la guía…</p></main>
+
+  <footer>
+    <div><strong>Mundo en Tus Manos Tech</strong>: implementación de IA y automatización para negocios hispanos.</div>
+    <div>Texto bajo CC BY 4.0, código bajo MIT. Formato inspirado en HowToLiveBetter (eternity4719).</div>
+  </footer>
+</div>
+
+<script>
+(function(){
+const LABELS={dinero:{"0":"Gratis",poco:"Costo bajo",mucho:"Cuesta dinero"},beneficio:{grande:"Beneficio grande",medio:"Beneficio medio",pequeno:"Beneficio pequeño"},tiempo:{poco:"Minutos",medio:"Horas",mucho:"Continuo"}};
+const FIELDS=["Costo","En corto","Beneficio","Evidencia","Fuente","Nota"];
+function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):s}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function inline(s){
+  const links=[];
+  s=s.replace(/<(https?:\/\/[^>\s]+)>/g,(m,u)=>{links.push(u);return "\u0000"+(links.length-1)+"\u0000"});
+  s=esc(s);
+  s=s.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+  s=s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,(m,t,u)=>/^https?:/.test(u)?`<a href="${u}" target="_blank" rel="noopener">${t}</a>`:t);
+  s=s.replace(/\u0000(\d+)\u0000/g,(m,i)=>{const u=links[+i];let host=u.replace(/^https?:\/\/(www\.)?/,"").split("/")[0];return `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(host)}</a>`});
+  return s;
+}
+function parse(md,file){
+  const lines=md.split(/\r?\n/);let sec=null,e=null,intro=[];const entries=[];
+  for(const line of lines){
+    let m;
+    if((m=/^# (\d+)\. (.+)/.exec(line))){sec={n:+m[1],title:m[2],file,intro:""};continue}
+    if((m=/^### (\d+)\. (.+)/.exec(line))){e={sec:sec.n,n:+m[1],title:m[2],tags:{},f:{}};entries.push(e);continue}
+    if(!e&&sec&&line.trim()&&!line.startsWith("[")){intro.push(line.trim());continue}
+    if(e&&(m=/^<!--\s*etiquetas:\s*(.*?)\s*-->/.exec(line))){m[1].split(/\s+/).forEach(kv=>{const[k,v]=kv.split("=");e.tags[k]=v});continue}
+    if(e&&(m=/^- ([^:]+):\s*(.*)$/.exec(line))&&FIELDS.includes(m[1])){e.f[m[1]]=m[2];continue}
+  }
+  if(sec)sec.intro=intro.join(" ");
+  return {sec,entries};
+}
+async function load(){
+  if(window.GUIA_DATA)return window.GUIA_DATA;
+  const readme=await (await fetch("README.md",{cache:"no-cache"})).text();
+  const files=[...new Set([...readme.matchAll(/\((book\/[^)]+\.md)\)/g)].map(m=>m[1]))];
+  const out={};
+  for(const f of files){out[f]=await (await fetch(f,{cache:"no-cache"})).text()}
+  return out;
+}
+const state={q:"",sec:"",chips:{}};
+try{const s=JSON.parse(localStorage.getItem("guia-filtros")||"null");if(s)Object.assign(state,s)}catch(e){}
+function save(){try{localStorage.setItem("guia-filtros",JSON.stringify(state))}catch(e){}}
+let SECS=[],ALL=[];
+function norm(s){return s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase()}
+function match(e){
+  if(state.sec&&String(e.sec)!==state.sec)return false;
+  for(const[k,v]of Object.entries(state.chips)){if(!v)continue;const[key,val]=k.split(":");if(key==="ev"){if(e.f.Evidencia!==val)return false}else if(e.tags[key]!==val)return false}
+  if(state.q){const hay=norm(e.title+" "+Object.values(e.f).join(" "));if(!norm(state.q).split(/\s+/).every(w=>hay.includes(w)))return false}
+  return true;
+}
+function card(e){
+  const id=`s${e.sec}-${e.n}`;const ev=e.f.Evidencia||"";
+  const pills=[`<span class="pill ev ${ev==="A"?"evA":""}">Evidencia ${esc(ev)}</span>`];
+  if(e.tags.dinero)pills.push(`<span class="pill ${e.tags.dinero==="0"?"free":""}">${LABELS.dinero[e.tags.dinero]||""}</span>`);
+  if(e.tags.beneficio)pills.push(`<span class="pill">${LABELS.beneficio[e.tags.beneficio]||""}</span>`);
+  if(e.tags.tiempo)pills.push(`<span class="pill">${LABELS.tiempo[e.tags.tiempo]||""}</span>`);
+  const rows=["Costo","Beneficio","Fuente","Nota"].filter(k=>e.f[k]).map(k=>`<div class="f"><dt>${k}</dt><dd>${inline(cap(e.f[k]))}</dd></div>`).join("");
+  return `<details class="card" id="${id}"><summary><div class="top"><span class="code">${e.sec}.${e.n}</span><h3>${inline(e.title)}</h3><span class="tw" aria-hidden="true">▸</span></div><p class="short">${inline(cap(e.f["En corto"]||""))}</p><div class="pills">${pills.join("")}</div></summary><dl class="fields">${rows}</dl></details>`;
+}
+function render(){
+  const out=document.getElementById("out");let html="",n=0;
+  for(const s of SECS){const es=ALL.filter(e=>e.sec===s.n&&match(e));if(!es.length)continue;n+=es.length;
+    html+=`<section class="sec"><h2><span class="n">Sección ${s.n}</span>${inline(s.title)}</h2>${s.intro?`<p class="intro">${inline(s.intro)}</p>`:""}<div class="list">${es.map(card).join("")}</div></section>`}
+  out.innerHTML=html||`<p class="empty">Ninguna ficha coincide con esos filtros. Quita alguno o busca otra palabra.</p>`;
+  document.getElementById("count").textContent=`${n} de ${ALL.length} fichas`;
+  const h=location.hash.slice(1);if(h){const el=document.getElementById(h);if(el&&el.tagName==="DETAILS"){el.open=true}}
+}
+load().then(files=>{
+  for(const[f,md]of Object.entries(files)){const r=parse(md,f);if(r.sec){SECS.push(r.sec);ALL.push(...r.entries)}}
+  SECS.sort((a,b)=>a.n-b.n);
+  const sel=document.getElementById("sec");SECS.forEach(s=>{const o=document.createElement("option");o.value=s.n;o.textContent=`${s.n}. ${s.title}`;sel.appendChild(o)});
+  document.getElementById("st-n").textContent=ALL.length;document.getElementById("st-s").textContent=SECS.length;
+  document.getElementById("st-a").textContent=ALL.filter(e=>e.f.Evidencia==="A").length;
+  document.getElementById("st-f").textContent=ALL.filter(e=>e.tags.dinero==="0").length;
+  const q=document.getElementById("q");q.value=state.q;sel.value=state.sec;
+  document.querySelectorAll(".chip").forEach(b=>{const k=b.dataset.k+":"+b.dataset.v;b.setAttribute("aria-pressed",state.chips[k]?"true":"false");
+    b.addEventListener("click",()=>{state.chips[k]=!state.chips[k];b.setAttribute("aria-pressed",state.chips[k]?"true":"false");save();render()})});
+  q.addEventListener("input",()=>{state.q=q.value.trim();save();render()});
+  sel.addEventListener("change",()=>{state.sec=sel.value;save();render()});
+  render();
+  if(location.hash){const el=document.getElementById(location.hash.slice(1));if(el)el.scrollIntoView()}
+}).catch(err=>{document.getElementById("out").innerHTML=`<p class="empty">No se pudo leer la guía (${esc(String(err.message))}). Abre la página con un servidor (python3 -m http.server) para que README.md y book/ estén al lado de index.html.</p>`});
+})();
+</script>
