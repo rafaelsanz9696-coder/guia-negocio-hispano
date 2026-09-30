@@ -6,7 +6,7 @@ No tienes que hacerlo todo. Es una lista de opciones ordenadas por lo que rinden
 
 > **Aviso:** esto es información general, no asesoría legal, fiscal ni financiera. Las leyes y las cifras cambian: cada entrada está verificada al **30 de septiembre de 2026**. Para tu caso concreto, consulta con un CPA, un Enrolled Agent o un abogado con licencia.
 
-**[Abrir el buscador](index.html)** · **[Skill para Claude](skills/guia-negocio-hispano/SKILL.md)**
+**[Abrir el buscador en línea](https://rafaelsanz9696-coder.github.io/guia-negocio-hispano/)** · **[Skill para Claude](skills/guia-negocio-hispano/SKILL.md)**
 
 ## Qué responde esta guía
 
